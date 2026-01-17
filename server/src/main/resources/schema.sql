@@ -1,12 +1,16 @@
 CREATE TABLE IF NOT EXISTS practice_time_record (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    record_id VARCHAR(64) NOT NULL,
     user_id VARCHAR(255),
     music_id VARCHAR(255),
     bpm INT,
     date DATE,
     duration BIGINT,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP,
+    CONSTRAINT uk_record_id UNIQUE (record_id)
 );
+
+
 CREATE TABLE users (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
@@ -50,4 +54,3 @@ CREATE TABLE song_category (
     FOREIGN KEY (song_id) REFERENCES song(id),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
-``
