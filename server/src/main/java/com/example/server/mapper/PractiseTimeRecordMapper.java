@@ -11,6 +11,7 @@ import com.example.pojo.entity.PracticeTimeRecord;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Mapper
 public interface PractiseTimeRecordMapper {
@@ -22,6 +23,7 @@ public interface PractiseTimeRecordMapper {
     @Insert("insert into practice_time_record (user_id, music_id, bpm, date, duration, updated_at) " +
             "values (#{userId}, #{musicId}, #{bpm}, #{date}, #{duration}, #{updatedAt})")
     void insert(PracticeTimeRecord practiseTimeRecord);
+    int insertBatch(@Param("records") List<PracticeTimeRecord> records);
 
     @Select("SELECT * FROM practice_time_record WHERE id = #{id}")
     PracticeTimeRecord findById(Long id);

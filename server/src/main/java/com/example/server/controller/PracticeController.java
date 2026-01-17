@@ -40,6 +40,10 @@ public class PracticeController {
             return recordService.createRecord(record);
         }).toList();
     }
+    @PostMapping("/batch")
+    public RecordService.BatchResult sync(@RequestBody List<PracticeTimeRecord> records) {
+        return recordService.sync(records);
+    }
 
 //    @GetMapping
 //    public List<PracticeTimeRecord> getAllPracticeRecords() {
