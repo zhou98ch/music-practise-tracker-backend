@@ -29,3 +29,8 @@ property:
     admin-secret-key: music
     admin-ttl: 7200000
     admin-token-name: token
+
+app:
+  security:
+    jwt:
+      enabled: true

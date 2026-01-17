@@ -5,6 +5,7 @@ import json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,6 +23,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Autowired
     private JwtTokenInterceptor jwtTokenInterceptor;
 
+    @Value("${app.security.jwt.enabled:true}")
+    private boolean jwtEnabled;
+
     /**
      * register custom interceptors
      *
@@ -29,11 +33,13 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("adding my interceptor...");
-        registry.addInterceptor(jwtTokenInterceptor)
-                .addPathPatterns("/api/user/**")
-                .excludePathPatterns("/api/user/create")
-                .excludePathPatterns("/api/user/login");
-
+        if (jwtEnabled) {
+            registry.addInterceptor(jwtTokenInterceptor)
+                    .addPathPatterns("/api/user/**")
+                    .excludePathPatterns("/api/user/create")
+                    .excludePathPatterns("/api/user/login");
+        }
+    // TODO which controller should also add interceptor?
     }
 
     /**
