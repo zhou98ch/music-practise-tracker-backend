@@ -3,8 +3,7 @@ package com.example.server.controller;
 import com.example.pojo.DTO.PracticeTimeRequestDTO;
 import com.example.pojo.entity.PracticeTimeRecord;
 //import com.example.server.repository.PracticeTimeRecordRepository;
-import com.example.server.service.RecordService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.server.service.PractiseService;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.List;
 public class PracticeController {
 
 //    private final PracticeTimeRecordRepository practiceRepository;
-    private final RecordService recordService;
-    @Autowired
-    public PracticeController(RecordService recordService) {
-        this.recordService = recordService;
+    private final PractiseService practiseService;
+
+    public PracticeController(PractiseService practiseService) {
+        this.practiseService = practiseService;
     }
 
     @PostMapping("/savePracticeRecord")
@@ -37,12 +36,12 @@ public class PracticeController {
             record.setUserId("current_user_id");
             record.setUpdatedAt(LocalDate.now());
             System.out.println("Processing record: " + dto);
-            return recordService.createRecord(record);
+            return practiseService.createRecord(record);
         }).toList();
     }
     @PostMapping("/batch")
-    public RecordService.BatchResult sync(@RequestBody List<PracticeTimeRecord> records) {
-        return recordService.sync(records);
+    public PractiseService.BatchResult sync(@RequestBody List<PracticeTimeRecord> records) {
+        return practiseService.sync(records);
     }
 
 //    @GetMapping

@@ -4,12 +4,12 @@ import com.example.pojo.entity.PracticeTimeRecord;
 import com.example.server.mapper.PractiseTimeRecordMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RecordService {
+public class PractiseService {
     private final PractiseTimeRecordMapper recordMapper;
 
     public PracticeTimeRecord createRecord(PracticeTimeRecord record) {
