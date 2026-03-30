@@ -22,30 +22,33 @@ public class RecordService {
         }
         return record;
     }
-    @Transactional
+
     public BatchResult sync(List<PracticeTimeRecord> records) {
         if (records == null || records.isEmpty()) {
             return new BatchResult(0, 0);
         }
-
         // try batch insert first
         try {
             int inserted = recordMapper.insertBatch(records);
             int duplicated = records.size() - inserted;
             return new BatchResult(inserted, duplicated);
-        } catch (org.springframework.dao.DuplicateKeyException ex) {
+        } catch (Exception ex) { //TODO
             // in h2 batch insert may fail as a whole when a unique constraint is violated
             // degrade to insert one by one, to keep synchronization idempotent.
+
             int inserted = 0;
             int duplicated = 0;
+
             for (PracticeTimeRecord r : records) {
                 try {
                     recordMapper.insert(r);
                     inserted++;
-                } catch (org.springframework.dao.DuplicateKeyException e) { //TODO: put into global handler
+                } catch (Exception e) {
+
                     duplicated++;
                 }
             }
+
             return new BatchResult(inserted, duplicated);
         }
     }
