@@ -54,3 +54,16 @@ CREATE TABLE song_category (
     FOREIGN KEY (song_id) REFERENCES song(id),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
+CREATE TABLE lane (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    track_id BIGINT NOT NULL,
+    description TEXT,
+    sort_order INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (track_id) REFERENCES track(id)
+);
+CREATE TABLE track (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    description TEXT,
+    createdDate DATE,
+);
+
