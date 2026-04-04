@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class LaneDTO implements Serializable {
     private Long id;
-    private String trackId;
+    private Long trackId;
     private String description;
-    private int order;
+    private Integer order;
 }

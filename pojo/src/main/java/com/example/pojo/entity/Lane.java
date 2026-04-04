@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class Lane implements Serializable {
     private Long id;
-    private String trackId;
+    private Long trackId;
     private String description;
-    private int order;
+    private Integer order;
 }
