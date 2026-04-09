@@ -1,4 +1,4 @@
 app:
   security:
     jwt:
-      enabled: false
+      enabled: true
