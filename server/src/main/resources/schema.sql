@@ -54,6 +54,11 @@ CREATE TABLE song_category (
     FOREIGN KEY (song_id) REFERENCES song(id),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
+CREATE TABLE track (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    description TEXT,
+    createdDate DATE
+);
 CREATE TABLE lane (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     track_id BIGINT NOT NULL,
@@ -61,9 +66,12 @@ CREATE TABLE lane (
     sort_order INT NOT NULL DEFAULT 0,
     FOREIGN KEY (track_id) REFERENCES track(id)
 );
-CREATE TABLE track (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    description TEXT,
-    createdDate DATE,
-);
+INSERT INTO track (description, createdDate) VALUES
+('Yesterday practice', '2026-03-12'),
+('Today practice', '2026-03-13');
 
+INSERT INTO lane (track_id, description, sort_order) VALUES
+(1, 'Main vocal', 1),
+(1, 'Harmony', 2),
+(2, 'Lead take', 1),
+(2, 'Alt phrasing', 2);
