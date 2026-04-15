@@ -20,8 +20,8 @@ public interface PractiseTimeRecordMapper {
      * @param practiseTimeRecord
      */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into practice_time_record (user_id, music_id, bpm, date, duration, updated_at) " +
-            "values (#{userId}, #{musicId}, #{bpm}, #{date}, #{duration}, #{updatedAt})")
+    @Insert("insert into practice_time_record (user_id, music_id, record_id, bpm, date, duration, updated_at) " +
+            "values (#{userId}, #{recordId}, #{musicId}, #{bpm}, #{date}, #{duration}, #{updatedAt})")
     void insert(PracticeTimeRecord practiseTimeRecord);
     int insertBatch(@Param("records") List<PracticeTimeRecord> records);
 
