@@ -66,6 +66,26 @@ CREATE TABLE lane (
     sort_order INT NOT NULL DEFAULT 0,
     FOREIGN KEY (track_id) REFERENCES track(id)
 );
+
+CREATE TABLE take (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    track_id BIGINT NOT NULL,
+    FOREIGN KEY (track_id) REFERENCES track(id)
+    lane_id BIGINT NOT NULL,
+    FOREIGN KEY (lane_id) REFERENCES lane(id)
+    song_id BIGINT NOT NULL,
+    FOREIGN KEY (song_id) REFERENCES song(id)
+    description TEXT,
+    evaluation TEXT,
+    audio_url VARCHAR(255),
+    start_ms FLOAT;
+    duration_ms FLOAT;
+    created_user_id BIGINT,
+    FOREIGN KEY (created_user_id) REFERENCES users(id),
+    created_date DATE,
+    updated_date DATE
+);
+
 INSERT INTO track (description, createdDate) VALUES
 ('Yesterday practice', '2026-03-12'),
 ('Today practice', '2026-03-13');
