@@ -8,14 +8,14 @@ import java.time.LocalDate;
 @Data
 public class Take implements Serializable {
     private Long id;
-    private String trackId;
-    private String laneId;
-    private String songId;
+    private Long trackId;
+    private Long laneId;
+    private Long songId;
     private String description;
     private String evaluation;
     private String audioUrl;
-    private float startMs;
-    private float durationMs;
+    private Long startMs;
+    private Long durationMs;
     private Long createdUserId;
     private LocalDate createdDate;
     private LocalDate updatedDate;

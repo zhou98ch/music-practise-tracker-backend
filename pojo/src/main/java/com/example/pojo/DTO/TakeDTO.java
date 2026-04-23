@@ -7,13 +7,13 @@ import java.io.Serializable;
 @Data
 public class TakeDTO implements Serializable {
     private Long id;
-    private String trackId;
-    private String laneId;
-    private String songId;
+    private Long trackId;
+    private Long laneId;
+    private Long songId;
     private String description;
     private String evaluation;
     private String audioUrl;
-    private float startMs;
-    private float durationMs;
+    private Long startMs;
+    private Long durationMs;
     private Long createdUserId;
 }
