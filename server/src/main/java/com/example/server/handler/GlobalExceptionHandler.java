@@ -20,32 +20,43 @@ public class GlobalExceptionHandler {
 
     /**
      * catch business exception
-     * @param ex
-     * @return
      */
-    @ExceptionHandler
-    public Result exceptionHandler(BaseException ex){
-        log.error("Exception Info：{}", ex.getMessage());
+    @ExceptionHandler(BaseException.class)
+    public Result exceptionHandler(BaseException ex) {
+        log.error("BaseException:", ex);
         return Result.error(ex.getMessage());
     }
 
     /**
-     * handle SQL exception
-     * @param ex
-     * @return
+     * handle duplicate / integrity constraint exception
      */
-    @ExceptionHandler
-    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
-        String message = ex.getMessage();
-        if(message.contains("Unique index or primary key violation")){
-            String[] split =  message.split(" ");
-            String email = split[16];
-            String msg = "The user with email of " + email + MessageConstant.AlREADY_EXISTS;
-            return Result.error(msg);
-        }else{
-            return Result.error(MessageConstant.UNKNOWN_ERROR);
-        }
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex) {
+        log.error("SQLIntegrityConstraintViolationException:", ex);
+        return Result.error("Data already exists or violates database constraint");
     }
 
-    //TODO Handle other SQL exceptions
+    /**
+     * Spring database exception
+     */
+    @ExceptionHandler(org.springframework.dao.DuplicateKeyException.class)
+    public Result exceptionHandler(org.springframework.dao.DuplicateKeyException ex) {
+        log.error("DuplicateKeyException:", ex);
+        return Result.error("Duplicate record");
+    }
+
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public Result exceptionHandler(org.springframework.dao.DataIntegrityViolationException ex) {
+        log.error("DataIntegrityViolationException:", ex);
+        return Result.error("Data integrity violation");
+    }
+
+    /**
+     * for all others
+     */
+    @ExceptionHandler(Exception.class)
+    public Result exceptionHandler(Exception ex) {
+        log.error("Unhandled exception:", ex);
+        return Result.error(MessageConstant.UNKNOWN_ERROR);
+    }
 }
